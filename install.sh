@@ -23,52 +23,57 @@ echo "                                    |___/  "
 echo -e "          ${BLUE}⚡ Resist the Ordinary Shell ⚡${NC}"
 echo "-------------------------------------------------------"
 
-# Fonksiyon: Hata Kontrolü
-check_status() {
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}[TAMAMLANDI]${NC} $1"
-    else
-        echo -e "${RED}[HATA]${NC} $1 sırasında bir sorun oluştu."
-        exit 1
-    fi
-}
+# 1. Paket Listesi Güncelleme (Hatalı depolarda takılmaması için timeout eklendi)
+echo -e "${BLUE}>>>${NC} Paket listesi güncelleniyor (Sorunlu depolar atlanacak)..."
+# 20 saniye içinde cevap vermeyen depoları pas geçer
+sudo timeout 20 apt update || echo -e "${RED}[!] Bazı depolar güncellenemedi ancak kuruluma devam ediliyor...${NC}"
 
-# 1. Zsh Yükleme
-echo -e "${BLUE}>>>${NC} Sistem kontrol ediliyor..."
+# 2. Zsh Yükleme
 if ! command -v zsh &> /dev/null; then
-    sudo apt update && sudo apt install -y zsh
-    check_status "Zsh Kurulumu"
+    echo -e "${BLUE}>>>${NC} Zsh kuruluyor..."
+    sudo apt install -y zsh
 else
     echo -e "${GREEN}[+]${NC} Zsh zaten yüklü."
 fi
 
-# 2. Oh My Zsh Yükleme
+# 3. Oh My Zsh Yükleme
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     echo -e "${BLUE}>>>${NC} Oh My Zsh yükleniyor..."
+    # --unattended bayrağı kurulumun etkileşim gerektirmeden bitmesini sağlar
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    check_status "Oh My Zsh"
 fi
 
-# 3. Ohmzify Eklenti Paketi
+# 4. Eklentilerin İndirilmesi
 ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
-echo -e "${BLUE}>>>${NC} Eklentiler enjekte ediliyor..."
+echo -e "${BLUE}>>>${NC} Eklentiler indiriliyor..."
 
 # Autosuggestions
-[ ! -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ] && \
+if [ ! -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM}/plugins/zsh-autosuggestions --quiet
+fi
 
 # Syntax Highlighting
-[ ! -d "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting" ] && \
+if [ ! -d "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting" ]; then
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting --quiet
+fi
 
-check_status "Eklenti Kurulumları"
+# 5. .zshrc Yapılandırması
+echo -e "${BLUE}>>>${NC} Ayarlar dosyasına ( .zshrc ) işleniyor..."
 
-# 4. .zshrc Yapılandırması
-echo -e "${BLUE}>>>${NC} Ohmzify ayarları uygulanıyor..."
+# Plugin satırını güncelle (git, autosuggestions ve syntax-highlighting ekle)
 sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' ~/.zshrc
+
+# Temayı Agnoster yap
 sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc
 
-# Final
+# 6. Varsayılan Shell Değiştirme
+if [ "$SHELL" != "$(which zsh)" ]; then
+    echo -e "${BLUE}>>>${NC} Varsayılan kabuk Zsh olarak değiştiriliyor..."
+    sudo chsh -s $(which zsh) $USER
+fi
+
+# Final Mesajı
 echo -e "\n${GOLD}${BOLD}Ohmzify Başarıyla Kuruldu!${NC}"
-echo -e "Lütfen terminali kapatıp açın veya ${BLUE}'source ~/.zshrc'${NC} çalıştırın."
+echo -e "${BLUE}NOT:${NC} Değişiklikleri görmek için terminali kapatıp açın veya şu komutu çalıştırın:"
+echo -e "${GREEN}source ~/.zshrc${NC}"
 echo "-------------------------------------------------------"
