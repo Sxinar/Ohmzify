@@ -25,7 +25,7 @@
 
 ### 📦 Installation
 ```bash
-git clone [https://github.com/Sxinar/Ohmzify.git](https://github.com/Sxinar/Ohmzify.git) && cd Ohmzify && chmod +x install.sh && ./install.sh
+git clone https://github.com/Sxinar/Ohmzify.git && cd Ohmzify && chmod +x install.sh && ./install.sh
 
 ```
 
@@ -49,7 +49,7 @@ For the `agnoster` theme to display icons correctly, you should install a **Nerd
 ### 📦 Kurulum
 
 ```bash
-git clone [https://github.com/Sxinar/Ohmzify.git](https://github.com/Sxinar/Ohmzify.git) && cd Ohmzify && chmod +x install.sh && ./install.sh
+git clone https://github.com/Sxinar/Ohmzify.git && cd Ohmzify && chmod +x install.sh && ./install.sh
 
 ```
 
