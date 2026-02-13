@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohmzify | Terminalinizi Modernize Edin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --accent-color: #38bdf8;
+            --secondary-accent: #818cf8;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --card-bg: #1e293b;
+            --code-bg: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Arka Plan Efekti */
+        .blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at top right, rgba(129, 140, 248, 0.05), transparent);
+        }
+
+        .hero-badge {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        /* Kurulum Kutusu */
+        .install-box {
+            background: var(--code-bg);
+            padding: 15px 25px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #334155;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            max-width: 100%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .install-box:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        code {
+            color: var(--accent-color);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+        }
+
+        /* Karşılaştırma Tablosu */
+        .container {
+            max-width: 1000px;
+            margin: 100px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            color: var(--accent-color);
+            padding: 15px;
+            border-bottom: 2px solid #334155;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #334155;
+            color: var(--text-dim);
+        }
+
+        tr:last-child td { border: none; }
+
+        /* Özellikler */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .feature-card:hover {
+            border-color: var(--secondary-accent);
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 100px 20px;
+            color: var(--text-dim);
+        }
+
+        .footer-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            code { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blob" style="top: -100px; right: -100px;"></div>
+    <div class="blob" style="bottom: -100px; left: -100px;"></div>
+
+    <header>
+        <div class="hero-badge">Yeni Nesil Terminal Deneyimi</div>
+        <h1>⚡ Ohmzify</h1>
+        <p class="hero-subtitle">
+            Standart terminalinizi saniyeler içinde yüksek performanslı, akıllı ve estetik bir çalışma alanına dönüştürün.
+        </p>
+        
+        <div class="install-box" onclick="copyToClipboard()">
+            <code id="installCommand">git clone https://github.com/Sxinar/Ohmzify.git && cd Ohmzify && chmod +x install.sh && ./install.sh</code>
+            <i class="fa-regular fa-copy" id="copyIcon"></i>
+        </div>
+        <p style="margin-top: 15px; font-size: 0.8rem; color: var(--text-dim);">Tıklayarak kopyalayın</p>
+    </header>
+
+    <div class="container">
+        <h2>Neden Zsh Dünyası?</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Özellik</th>
+                        <th>Bash (Standart)</th>
+                        <th>Ohmzify (Zsh)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Otomatik Öneriler</td>
+                        <td>❌ Yok</td>
+                        <td>✅ Akıllı Geçmiş</td>
+                    </tr>
+                    <tr>
+                        <td>Sözdizimi Vurgulama</td>
+                        <td>❌ Yok</td>
+                        <td>✅ Gerçek Zamanlı Renkli</td>
+                    </tr>
+                    <tr>
+                        <td>Tema Desteği</td>
+                        <td>⚠️ Kısıtlı</td>
+                        <td>✨ Agnoster (Profesyonel)</td>
+                    </tr>
+                    <tr>
+                        <td>Git Entegrasyonu</td>
+                        <td>❌ Manuel</td>
+                        <td>🚀 Görsel Dallanma (Branch)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <i class="fa-solid fa-bolt"></i>
+                <h3>Hızlı Kurulum</h3>
+                <p>Manuel yapılandırmalarla uğraşmayın. Tek komutla her şeyi halledin.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-palette"></i>
+                <h3>Estetik Tasarım</h3>
+                <p>Agnoster teması ile terminaliniz bir sanat eserine dönüşsün.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-gears"></i>
+                <h3>Güçlü Altyapı</h3>
+                <p>Oh My Zsh üzerine inşa edilmiş, en popüler eklentilerle optimize edilmiş sistem.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Made with ❤️ by <a href="https://github.com/Sxinar" class="footer-link">Sxinar</a></p>
+    </footer>
+
+    <script>
+        function copyToClipboard() {
+            const command = document.getElementById('installCommand').innerText;
+            navigator.clipboard.writeText(command).then(() => {
+                const icon = document.getElementById('copyIcon');
+                icon.classList.replace('fa-regular', 'fa-solid');
+                icon.classList.replace('fa-copy', 'fa-check');
+                icon.style.color = '#4ade80';
+                
+                setTimeout(() => {
+                    icon.classList.replace('fa-solid', 'fa-regular');
+                    icon.classList.replace('fa-check', 'fa-copy');
+                    icon.style.color = '';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
